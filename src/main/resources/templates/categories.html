@@ -8,9 +8,26 @@
 </head>
 <body>
 
-    <h1>Categories page</h1>
+<h1>Categories page</h1>
 
-    <a th ></a>
+<div>IP Address <th:block th:text="${ipAddress}"></th:block> </div>
+<div>Client Agent <th:block th:text="${clientAgent}"></th:block></div>
+<div>Categories: <th:block th:text="${categories}"></th:block></div>
+
+<ul>
+    <li></li>
+</ul>
+
+<h3>Add new category</h3>
+
+<form th:action="@{/servlet/thymeleaf/category}" th:method="POST">
+
+    <label for='name'>Name:</label>: <input id="name" type="text" name="name">
+    <label for='description'>Description:</label> <input id="description" type="text" name="description">
+
+    <input type="submit" value="Submit">
+
+</form>
 
 </body>
 </html>

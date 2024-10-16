@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mk.ukim.finki.wp_aud1.model.Category;
+import mk.ukim.finki.wp_aud1.service.CategoryService;
+import mk.ukim.finki.wp_aud1.service.impl.CategoryServiceImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,29 +18,10 @@ import java.util.List;
 @WebServlet(name="CategoryServlet", urlPatterns = "/servlet/category")
 public class CategoryServlet extends HttpServlet {
 
-    private List<Category> categories = null;
+    private final CategoryService categoryService;
 
-    public void addCategory(String name, String description){
-
-        if(name == null || name.isEmpty() || description == null || description.isEmpty()){
-            return;
-        }
-
-        this.categories.add(new Category(name, description));
-    }
-
-    // initialize the categories
-    @Override
-    public void init() throws ServletException { //inicijalizacija na listata
-        super.init();
-
-        this.categories = new ArrayList<>();
-
-        addCategory("Java", "Java related books");
-        addCategory("Software", "Software related books");
-
-        //this.categories.add(new Category("Software", "Software related books"));
-        //this.categories.add(new Category("Programming", "Programming related books"));
+    public CategoryServlet(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -61,9 +44,10 @@ public class CategoryServlet extends HttpServlet {
 
         printWriter.println("<h3>Categories</h3>");
         printWriter.println("<ul>");
-        this.categories.forEach(category -> {
-            printWriter.println("<li>" + category.getName() + " - " + category.getDescription() + "</li>");
-        });
+
+        categoryService.listCategories()
+                .forEach(c -> printWriter.format("<li>%s (%s)</li>", c.getName(), c.getDescription()));
+
         printWriter.println("</ul>");
         printWriter.println("</body>");
         printWriter.println("</html>");
@@ -79,7 +63,8 @@ public class CategoryServlet extends HttpServlet {
         //dodavanje na nova kategorija
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        addCategory(name,description);
+
+        categoryService.create(name, description);
 
         resp.sendRedirect("/servlet/category");
     }
