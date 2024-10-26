@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryCategoryRepository {
 
-    //CRUD
-
     public List<Category> findAll(){
 
         return DataHolder.categories;

@@ -2,6 +2,7 @@ package mk.ukim.finki.wp_aud1.bootstrap;
 
 import jakarta.annotation.PostConstruct;
 import mk.ukim.finki.wp_aud1.model.Category;
+import mk.ukim.finki.wp_aud1.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class DataHolder {
     // In-memory data holder
 
     public static List<Category> categories = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
 
     public void addCategory(String name, String description){
         if(name == null || name.isEmpty() || description == null || description.isEmpty()){
@@ -29,5 +31,10 @@ public class DataHolder {
         //initialize the categories
         addCategory("Java", "Java related books");
         addCategory("Software", "Software related books");
+
+        //initialize the users
+        users.add(new User("davidhristov123", "Davidh2003@", "David", "Hristov"));
+        users.add(new User("simonadimi123", "Simona123@", "Simona", "Dimitrievska"));
+
     }
 }

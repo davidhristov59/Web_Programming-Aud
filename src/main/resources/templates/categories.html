@@ -10,12 +10,36 @@
 
 <h1>Categories page</h1>
 
-<div>IP Address <th:block th:text="${ipAddress}"></th:block> </div>
-<div>Client Agent <th:block th:text="${clientAgent}"></th:block></div>
-<div>Categories: <th:block th:text="${categories}"></th:block></div>
+<a th:href="@{/hello}">Home</a>
 
-<ul>
-    <li></li>
+<h2>
+    <th:block th:text="'IP Address: ' + ${ipAddress}"> </th:block>
+</h2>
+
+<h2>
+    <th:block th:text="'User-Agent: ' + ${clientAgent}"></th:block>
+</h2>
+
+<th:block th:if="${session.user}">
+
+    <h2>Info about user</h2>
+
+    <div th:text="'Username: ' + ${session.user.username}"></div>
+    <div th:text="'Name: ' + ${session.user.name}"></div>
+    <div th:text="'Surname: ' + ${session.user.surname}"></div>
+
+    <div>
+        <a th:href="/servlet/logout">Logout</a>
+    </div>
+
+</th:block>
+
+<h3>
+    Categories:
+</h3>
+
+<ul> <!--nesto kako for each -->
+    <li th:each="category: ${categories}" th:text="${category.name} + ' (' + ${category.description} + ') '"></li>
 </ul>
 
 <h3>Add new category</h3>
