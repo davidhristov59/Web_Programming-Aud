@@ -20,6 +20,10 @@ public class InMemoryCategoryRepository {
 
     public Category save(Category category){
 
+        if(category.getName().isEmpty()){
+            return null;
+        }
+
         // If the category already exists, remove it and add the new one
         DataHolder.categories.removeIf(r -> r.getName().equals(category.getName()));
 
@@ -31,13 +35,19 @@ public class InMemoryCategoryRepository {
     public List<Category> search(String text){
 
         return DataHolder.categories.stream()
-                .filter(r -> r.getName().contains(text) || r.getDescription().contains(text))
+                .filter(r -> r.getName().equals(text) || r.getDescription().equals(text))
                 .collect(Collectors.toList());
     }
 
     public Optional<Category> findByName(String name){
         return DataHolder.categories.stream()
                 .filter(c -> c.getName().equals(name))
+                .findFirst();
+    }
+
+    public Optional<Category> findById(Long id){
+        return DataHolder.categories.stream()
+                .filter(c -> c.getId().equals(id))
                 .findFirst();
     }
 

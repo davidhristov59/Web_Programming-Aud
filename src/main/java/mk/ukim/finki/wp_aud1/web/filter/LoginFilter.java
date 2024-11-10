@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 
         String path = http_req.getServletPath(); //go zema patot na koj e pristapeno
 
-        if (!"/login".equals(path) && user == null){
+        if (!"/login".equals(path) && !"/register".equals(path) && user == null){
             //ako korisnikot ne e logiran, go prenasocuvame na login stranata
             http_resp.sendRedirect("/servlet/login");
         }

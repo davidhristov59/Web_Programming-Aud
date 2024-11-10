@@ -14,7 +14,7 @@ public class InMemoryUserRepository {
     public Optional<User> findByUsername(String username){
 
         return DataHolder.users.stream()
-                .filter(r -> r.getUsername().contains(username))
+                .filter(r -> r.getUsername().equals(username))
                 .findFirst();
     }
 

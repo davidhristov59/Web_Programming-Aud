@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthenticationService {
     @Override
     public User login(String username, String password) {
 
-        if(username == null || username.isEmpty() || password == null || password.isEmpty()){
+        if( username.isEmpty() || password.isEmpty()){
             throw new InvalidArgumentException();
         }
 
@@ -34,7 +34,7 @@ public class AuthServiceImpl implements AuthenticationService {
     @Override
     public User register(String username, String password, String repeatPassword, String name, String surname) {
 
-        if (username == null && username.isEmpty() && password == null && password.isEmpty() && repeatPassword == null && repeatPassword.isEmpty() && name == null && name.isEmpty() && surname == null && surname.isEmpty()){
+        if (username.isEmpty() || password.isEmpty() || repeatPassword.isEmpty() || name.isEmpty() || surname.isEmpty()) {
             throw new InvalidArgumentException();
         }
 
