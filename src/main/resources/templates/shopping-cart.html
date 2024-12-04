@@ -2,7 +2,7 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Products</title>
+    <title>Categories</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -29,12 +29,14 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item m-auto">
-                        <a class="nav-link active" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item m-auto">
                         <a class="nav-link active" href="/products">Products</a>
                     </li>
-
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link active" href="/manufacturers">Manufacturers</a>
+                    </li>
                 </ul>
 
 
@@ -70,68 +72,35 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
-            <h3 class="jumbotron-heading">All products</h3>
+            <h3 class="jumbotron-heading">All products in shopping cart</h3>
         </div>
     </section>
 
-    <!--Pisuvano od mene -->
-
     <div class="container mb-4">
         <div class="row">
-            <div class="col-12" th:if="${products.size() > 0}"> <!--ako imam produkti -->
+            <div class="col-12" th:if="${products.size() > 0}">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">Product name</th>
+                            <th scope="col">Product</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Category</th>
                             <th scope="col">Manufacturer</th>
-
+                            <th scope="col">Category</th>
                         </tr>
                         </thead>
-                            <tbody>
-
-                                <tr th:each="product : ${products}" >
-
-                                    <td th:text="${product.name}"> </td>
-                                    <td th:text="${product.price}"> </td>
-                                    <td th:text="${product.quantity}"> </td>
-                                    <td th:text="${product.manufacturer.name}"> </td>
-                                    <td th:text="${product.category.name}"> </td>
-
-                                    <!--Forma za brisenje-->
-
-                                    <td class="text-right">
-                                        <form th:method="DELETE" th:action="@{'/products/delete/{id}' (id=${product.id})}"> <!--th:action - This attribute specifies the URL to which the form will be submitted. ID-to ke bide naznaceno na toj produkt so sakame da go izbriseme-->
-
-                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-
-                                        </form>
-
-                                        <a class="btn btn-sm btn-info" th:href="@{'/products/editForm/{id}' (id=${product.id})}" >Edit </a> <!--id mora da stavam za edit bidejki mora da znam za koj produkt editiram-->
-
-                                        <form th:method="POST" th:action="@{'/shopping-cart/add-product/{id}' (id=${product.id})}"> <!--th:action - This attribute specifies the URL to which the form will be submitted. ID-to ke bide naznaceno na toj produkt so sakame da go izbriseme-->
-
-                                            <button type="submit" class="btn btn-sm btn-primary">Add Product To Cart</button>
-
-                                        </form>
-
-                                    </td>
-                                </tr>
-                            </tbody>
+                        <tbody>
+                        <tr th:each="product : ${products}">
+                            <td th:text="${product.getName()}"></td>
+                            <td th:text="${product.getPrice()}"></td>
+                            <td th:text="${product.getManufacturer() != null} ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
+                            <td th:text="${product.getCategory() != null} ? ${product.getCategory().getName()} : 'No Category'"></td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
-
-            <div class="col mb-3 ">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12">
-                        <a href="/products/add-form" class="btn btn-block btn-dark">Add new product </a>
-                    </div>
-                </div>
-            </div>
+        </div>
     </div>
 </div>
 
@@ -182,6 +151,5 @@
         </div>
     </div>
 </footer>
-</div>
 </body>
 </html>

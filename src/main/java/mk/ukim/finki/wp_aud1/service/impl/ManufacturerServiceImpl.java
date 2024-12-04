@@ -31,4 +31,14 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     public Optional<Manufacturer> findByName(String name) {
         return manufacturerRepository.findByName(name);
     }
+
+    @Override
+    public Optional<Manufacturer> save(String name, String address) {
+        return manufacturerRepository.save(name, address);
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return manufacturerRepository.deleteById(id);
+    }
 }

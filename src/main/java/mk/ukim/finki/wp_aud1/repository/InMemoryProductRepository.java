@@ -31,7 +31,7 @@ public class InMemoryProductRepository {
     public Optional<Product> save(String name, Double price, Integer quantity, Category category, Manufacturer manufacturer){
 
         //ako ima vek postoecko ime , izbrisi go
-        DataHolder.products.removeIf(p -> p.getName().equals(name));
+        DataHolder.products.removeIf(p -> p.getQuantity().equals(quantity));
 
         Product product = new Product(name, price, quantity, category, manufacturer);
 
