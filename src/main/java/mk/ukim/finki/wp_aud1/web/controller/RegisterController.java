@@ -40,7 +40,7 @@ public class RegisterController {
                                             @RequestParam String surname){
 
         try{
-            this.authenticationService.register(username, password, repeatedPassword, name, surname);
+            //this.authenticationService.register(username, password, repeatedPassword, name, surname);
             return "redirect:/login";
         }catch(InvalidPasswordException exception){
             return "redirect:/register?error=" + exception.getMessage();
